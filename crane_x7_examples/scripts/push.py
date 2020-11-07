@@ -88,6 +88,7 @@ def main():
         target_pose.orientation.w = q[3]
         arm.set_pose_target(target_pose)  # 目標ポーズ設定
         arm.go()  # 実行
+<<<<<<< HEAD
         
         rospy.sleep(1.0)
         
@@ -122,3 +123,5 @@ if __name__ == '__main__':
             main()
     except rospy.ROSInterruptException:
         pass
+=======
+>>>>>>> 5e79ee9b236932ed196a45249a95daa407e4ca4e
