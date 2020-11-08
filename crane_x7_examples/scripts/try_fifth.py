@@ -44,6 +44,8 @@ def main():
     arm.set_pose_target(target_pose)  # 目標ポーズ設定
     arm.go()  # 実行
 
+    rospy.sleep(0.5)
+
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.25
     target_pose.position.y = -0.3
@@ -61,6 +63,31 @@ def main():
 
     print("Step.2　ウンコを移動させる")
     rospy.sleep(1.0)
+
+    target_pose = geometry_msgs.msg.Pose()
+    target_pose.position.x = 0.25
+    target_pose.position.y = -0.3
+    target_pose.position.z = 0.15
+    q = quaternion_from_euler(-3.14/2.0, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+    target_pose.orientation.x = q[0]
+    target_pose.orientation.y = q[1]
+    target_pose.orientation.z = q[2]
+    target_pose.orientation.w = q[3]
+    arm.set_pose_target(target_pose)  # 目標ポーズ設定
+    arm.go()  # 実行
+
+    target_pose = geometry_msgs.msg.Pose()
+    target_pose.position.x = 0.25
+    target_pose.position.y = 0.0
+    target_pose.position.z = 0.15
+    q = quaternion_from_euler(-3.14/2.0, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+    target_pose.orientation.x = q[0]
+    target_pose.orientation.y = q[1]
+    target_pose.orientation.z = q[2]
+    target_pose.orientation.w = q[3]
+    arm.set_pose_target(target_pose)  # 目標ポーズ設定
+    arm.go()							# 実行
+
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.25
     target_pose.position.y = 0.0
@@ -75,6 +102,8 @@ def main():
 
     gripper.set_joint_value_target([0.7, 0.7])
     gripper.go()
+
+    rospy.sleep(1.0)
 
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.2
@@ -116,6 +145,8 @@ def main():
 
     gripper.set_joint_value_target([0.2, 0.2])
     gripper.go()
+
+    rospy.sleep(1.0)
 
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.25
