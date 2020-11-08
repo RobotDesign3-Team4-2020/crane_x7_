@@ -74,65 +74,23 @@ def main():
     gripper.set_joint_value_target([0.2, 0.2])
     gripper.go()
 
-    # 持ち上げる
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0
-    target_pose.position.y = -0.3
-    target_pose.position.z = 0.3
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()							# 実行
-
-    # 移動する
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
-    target_pose.position.y = 0.0
-    target_pose.position.z = 0.3
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
-
-    # 下ろす
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
-    target_pose.position.y = 0.0
-    target_pose.position.z = 0.1
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
+    # SRDFに定義されている"landing"の姿勢にする
+    arm.set_named_target("landing")
+    arm.go()
+    gripper.set_joint_value_target([0.7, 0.7])
+    gripper.go()
 
     # ハンドを開く
     gripper.set_joint_value_target([0.7, 0.7])
     gripper.go()
 
-    # 少しだけハンドを持ち上げる
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
-    target_pose.position.y = 0.0
-    target_pose.position.z = 0.2
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
 
-    # SRDFに定義されている"home"の姿勢にする
-    arm.set_named_target("home")
+    # SRDFに定義されている"vertical"の姿勢にする
+    arm.set_named_target("vertical")
     arm.go()
+    gripper.set_joint_value_target([0.7, 0.7])
+    gripper.go()
+
 
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.2
@@ -178,15 +136,6 @@ def main():
 
     arm.set_named_target("home")
     arm.go()
-
-
-
-
-
-
-
-
-
 
     print("done")
 
