@@ -42,8 +42,8 @@ def main():
 
     # 掴む準備をする
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = -0.3
+    target_pose.position.x = 0.2
+    target_pose.position.y = 0.0
     target_pose.position.z = 0.3
     q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
     target_pose.orientation.x = q[0]
@@ -59,10 +59,10 @@ def main():
 
     # 掴みに行く
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = -0.3
-    target_pose.position.z = 0.07
-    q = quaternion_from_euler(-3.14/2.0, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+    target_pose.position.x = 0.2
+    target_pose.position.y = 0.0
+    target_pose.position.z = 0.13
+    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
@@ -71,13 +71,13 @@ def main():
     arm.go()  # 実行
 
     # ハンドを閉じる
-    gripper.set_joint_value_target([0.2, 0.2])
+    gripper.set_joint_value_target([0.4, 0.4])
     gripper.go()
 
     # 持ち上げる
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = -0.3
+    target_pose.position.x = 0.2
+    target_pose.position.y = 0.0
     target_pose.position.z = 0.3
     q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
     target_pose.orientation.x = q[0]
@@ -89,8 +89,8 @@ def main():
 
     # 移動する
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = 0.0
+    target_pose.position.x = 0.2
+    target_pose.position.y = 0.2
     target_pose.position.z = 0.3
     q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
     target_pose.orientation.x = q[0]
@@ -102,10 +102,10 @@ def main():
 
     # 下ろす
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = 0.0
-    target_pose.position.z = 0.1
-    q = quaternion_from_euler(-3.14/2.0, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+    target_pose.position.x = 0.2
+    target_pose.position.y = 0.2
+    target_pose.position.z = 0.13
+    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
@@ -119,8 +119,8 @@ def main():
 
     # 少しだけハンドを持ち上げる
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = 0.0
+    target_pose.position.x = 0.2
+    target_pose.position.y = 0.2
     target_pose.position.z = 0.2
     q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
     target_pose.orientation.x = q[0]
@@ -133,60 +133,6 @@ def main():
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
     arm.go()
-
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = 0.1
-    target_pose.position.z = 0.33
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
-
-    gripper.set_joint_value_target([0.7, 0.7])
-    gripper.go()
-
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = 0.1
-    target_pose.position.z = 0.23
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
-
-    rospy.sleep(1.0)
-
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.3
-    target_pose.position.y = 0.1
-    target_pose.position.z = 0.33
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
-
-
-    arm.set_named_target("home")
-    arm.go()
-
-
-
-
-
-
-
-
-
 
     print("done")
 
