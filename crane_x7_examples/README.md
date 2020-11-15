@@ -15,7 +15,14 @@ git checkout unko_shodoku_try
 ## 実機を使う場合
 ### モデル配置
 - 用意するもの
-  - <img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img4.jpg" width="400">
+  - うんこのおもちゃ
+  - 市販の据え置き型アルコールスプレー  
+<img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img4.jpg" width="400">
+
+- 配置方法
+<img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img5.jpg" width="400">  
+<img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img2.jpg" width="400">  
+<img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img1.jpg" width="400">  
 
 ### 実機の動かし方
 動作確認する場合、信号ケーブルを接続した状態で次のコマンドを実行してください。
