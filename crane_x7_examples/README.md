@@ -20,7 +20,7 @@ git checkout unko_shodoku_try
 <img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img4.jpg" width="400">
 
 - 配置方法
-<img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img5.jpg" width="400">  
+<img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img5.png" width="400">  
 <img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img2.jpg" width="400">  
 <img src= "https://github.com/RobotDesign3-Team4-2020/interim_report/blob/master/img/img1.jpg" width="400">  
 
