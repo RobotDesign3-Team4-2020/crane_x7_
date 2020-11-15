@@ -22,10 +22,7 @@ $ sudo chmod 666 /dev/ttyUSB0
 $ roslaunch crane_x7_bringup demo.launch fake_execution:=false  
 ```  
 ## gazeboを使用する場合 
-   - gazeboモデルのインストール  
-  ~~~
-$ git clone https://github.com/RobotDesign3-Team4-2020/crane_x7_ros.git
-  ~~~
+   
    - gazeboの起動方法  
    ~~~
    $ roslaunch crane_x7_gazebo crane_x7_with_table.launch
