@@ -1,4 +1,26 @@
 [English](README.en.md) | [日本語](README.md)
+# うんこ消毒ロボット
+
+## CRANE-X7のROSパッケージをインストール
+```
+$ cd ~/catkin_ws/src/
+$ https://github.com/RobotDesign3-Team4-2020/crane_x7_ros.git
+$ rosdep install -r -y --from-paths --ignore-src crane_x7_ros
+```
+## branchの移動
+```
+cd ~/catkin_ws/src/crane_x7_ros
+git checkout unko_shodoku_try
+```
+## 実機を使う場合
+- モデル配置
+
+- 実機の動かし方
+動作確認する場合、信号ケーブルを接続した状態で次のコマンドを実行してください。
+```
+$ sudo chmod 666 /dev/ttyUSB0
+$ roslaunch crane_x7_bringup demo.launch fake_execution:=false  
+```  
 
 # crane_x7_examples
 
