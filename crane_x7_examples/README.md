@@ -4,7 +4,7 @@
 ## CRANE-X7のROSパッケージをインストール
 ```
 $ cd ~/catkin_ws/src/
-$ https://github.com/RobotDesign3-Team4-2020/crane_x7_ros.git
+$ git clone https://github.com/RobotDesign3-Team4-2020/crane_x7_ros.git
 $ rosdep install -r -y --from-paths --ignore-src crane_x7_ros
 ```
 ## branchの移動
