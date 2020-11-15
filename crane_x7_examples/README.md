@@ -78,6 +78,14 @@ roslaunch crane_x7_bringup demo.launch fake_execution:=false
 ```sh
 roslaunch crane_x7_bringup demo.launch fake_execution:=false port:=/dev/ttyUSB1
 ```
+### Gazeboを使う場合
+
+次のコマンドで起動します。実機との接続やcrane_x7_bringupの実行は必要ありません。
+
+```sh
+roslaunch crane_x7_gazebo crane_x7_with_table.launch
+```
+
 
 ## Run Examples
 
