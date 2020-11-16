@@ -47,4 +47,4 @@ $ roslaunch crane_x7_bringup demo.launch fake_execution:=false
   ~~~
 rosrun crane_x7_examples try_third.py
   ~~~
-  - プログラムコードは[こちら](https://github.com/RobotDesign3-Team4-2020/crane_x7_ros/blob/master/crane_x7_examples/scripts/try_third.py)をご覧ください
+  - ソースコードは[こちら](https://github.com/RobotDesign3-Team4-2020/crane_x7_ros/blob/master/crane_x7_examples/scripts/try_third.py)をご覧ください
