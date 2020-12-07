@@ -2,15 +2,16 @@ cmake_minimum_required(VERSION 2.8.3)
 project(crane_x7_examples)
 
 find_package(catkin REQUIRED COMPONENTS
-rospy
-roscpp
-std_msgs
-geometry_msgs
-message_generation
-sensor_msgs
-cv_bridge
-image_transport
+  roscpp
+  rospy
+  std_msgs
+  geometry_msgs
+  message_generation
+  sensor_msgs
+  cv_bridge
+  image_transport
 )
+find_package(OpenCV REQUIRED)
 
 add_service_files(FILES ObstacleAvoidance.srv)
 generate_messages(DEPENDENCIES std_msgs geometry_msgs)
@@ -45,8 +46,8 @@ include_directories(
 ## Install ##
 #############
 
-add_executable(cam scripts/opencv.cpp)
-target_link_libraries(cam ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_executable(cam1 scripts/opencv.cpp)
+target_link_libraries(cam1 ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 install(PROGRAMS
   scripts/crane_x7_pick_and_place_demo.py
