@@ -46,8 +46,8 @@ include_directories(
 ## Install ##
 #############
 
-add_executable(cam1 scripts/opencv.cpp)
-target_link_libraries(cam1 ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_executable(cam scripts/opencv.cpp)
+target_link_libraries(cam ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 install(PROGRAMS
   scripts/crane_x7_pick_and_place_demo.py
