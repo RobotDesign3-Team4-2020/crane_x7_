@@ -115,7 +115,7 @@ def main():
     target_pose.position.x = 0.2
     target_pose.position.y = 0.1
     target_pose.position.z = 0.33
-    q = quaternion_from_euler(-3.14, 0.0, -1.0)              
+    q = quaternion_from_euler(-3.14, 0.0, -1.4)              
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
@@ -131,7 +131,7 @@ def main():
     target_pose.position.x = 0.2
     target_pose.position.y = 0.1
     target_pose.position.z = 0.21
-    q = quaternion_from_euler(-3.14, 0, -1.0)  #先程の手首をz軸に80度ほど回転させた姿勢にする。
+    q = quaternion_from_euler(-3.14, 0, -1.4)  #先程の手首をz軸に80度ほど回転させた姿勢にする。
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
@@ -146,7 +146,7 @@ def main():
     target_pose.position.x = 0.2
     target_pose.position.y = 0.1
     target_pose.position.z = 0.33
-    q = quaternion_from_euler(-3.14, 0.0, -1.0)  #先程の手首をz軸に80度ほど回転させた姿勢にする。
+    q = quaternion_from_euler(-3.14, 0.0, -1.4)  #先程の手首をz軸に80度ほど回転させた姿勢にする。
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
