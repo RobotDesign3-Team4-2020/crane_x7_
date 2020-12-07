@@ -19,16 +19,16 @@ def main():
         rospy.sleep(1.0)
     rospy.sleep(1.0)
 
-    print("Group names:")
-    print(robot.get_group_names())
+    #print("Group names:")
+    #print(robot.get_group_names())
 
-    print("Current state:")
-    print(robot.get_current_state())
+    #print("Current state:")
+   # print(robot.get_current_state())
 
     # アーム初期ポーズを表示
     arm_initial_pose = arm.get_current_pose().pose
-    print("Arm initial pose:")
-    print(arm_initial_pose)
+    #print("Arm initial pose:")
+    #print(arm_initial_pose)
 
     # 何かを掴んでいた時のためにハンドを開く
     gripper.set_joint_value_target([0.9, 0.9])
@@ -42,7 +42,7 @@ def main():
 
     # 掴む準備をする
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
+    target_pose.position.x = 0
     target_pose.position.y = -0.3
     target_pose.position.z = 0.3
     q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
@@ -59,7 +59,7 @@ def main():
 
     # 掴みに行く
     target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
+    target_pose.position.x = 0
     target_pose.position.y = -0.3
     target_pose.position.z = 0.07
     q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
@@ -74,71 +74,31 @@ def main():
     gripper.set_joint_value_target([0.2, 0.2])
     gripper.go()
 
-    # 持ち上げる
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
-    target_pose.position.y = -0.3
-    target_pose.position.z = 0.3
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()							# 実行
+    # SRDFに定義されている"landing"の姿勢にする
+    arm.set_named_target("landing")
+    arm.go()
 
-    # 移動する
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
-    target_pose.position.y = 0.0
-    target_pose.position.z = 0.3
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
-
-    # 下ろす
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
-    target_pose.position.y = 0.0
-    target_pose.position.z = 0.1
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
 
     # ハンドを開く
     gripper.set_joint_value_target([0.7, 0.7])
     gripper.go()
 
-    # 少しだけハンドを持ち上げる
-    target_pose = geometry_msgs.msg.Pose()
-    target_pose.position.x = 0.2
-    target_pose.position.y = 0.0
-    target_pose.position.z = 0.2
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
-    target_pose.orientation.x = q[0]
-    target_pose.orientation.y = q[1]
-    target_pose.orientation.z = q[2]
-    target_pose.orientation.w = q[3]
-    arm.set_pose_target(target_pose)  # 目標ポーズ設定
-    arm.go()  # 実行
 
-    # SRDFに定義されている"home"の姿勢にする
-    arm.set_named_target("home")
+    # SRDFに定義されている"vertical"の姿勢にする
+    #アルコールに当たることがあるので一度アームを垂直にする。
+    arm.set_named_target("vertical")
     arm.go()
 
+    #アームを開いて押す準備をする
+    gripper.set_joint_value_target([0.7, 0.7])
+    gripper.go()
+
+    #アームをアルコールの上に持ってくる
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.2
     target_pose.position.y = 0.1
     target_pose.position.z = 0.33
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+    q = quaternion_from_euler(-3.14, 0.0, -0.7)  #手首をz軸に80度ほど回転させた姿勢にしてボトルのノズルを押しやすくする。
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
@@ -149,11 +109,29 @@ def main():
     gripper.set_joint_value_target([0.7, 0.7])
     gripper.go()
 
+
+    #アルコールのノズルの向きを変える
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.2
     target_pose.position.y = 0.1
-    target_pose.position.z = 0.23
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+    target_pose.position.z = 0.33
+    q = quaternion_from_euler(-3.14, 0.0, -1.0)              
+    target_pose.orientation.x = q[0]
+    target_pose.orientation.y = q[1]
+    target_pose.orientation.z = q[2]
+    target_pose.orientation.w = q[3]
+    arm.set_pose_target(target_pose)  # 目標ポーズ設定
+    arm.go() #実行
+    
+    rospy.sleep(1.0)
+
+
+    #アルコールボトルを押す
+    target_pose = geometry_msgs.msg.Pose()
+    target_pose.position.x = 0.2
+    target_pose.position.y = 0.1
+    target_pose.position.z = 0.21
+    q = quaternion_from_euler(-3.14, 0, -1.0)  #先程の手首をz軸に80度ほど回転させた姿勢にする。
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
@@ -163,11 +141,12 @@ def main():
 
     rospy.sleep(1.0)
 
+    #アルコールボトルからアームを引く
     target_pose = geometry_msgs.msg.Pose()
     target_pose.position.x = 0.2
     target_pose.position.y = 0.1
     target_pose.position.z = 0.33
-    q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+    q = quaternion_from_euler(-3.14, 0.0, -1.0)  #先程の手首をz軸に80度ほど回転させた姿勢にする。
     target_pose.orientation.x = q[0]
     target_pose.orientation.y = q[1]
     target_pose.orientation.z = q[2]
@@ -175,18 +154,9 @@ def main():
     arm.set_pose_target(target_pose)  # 目標ポーズ設定
     arm.go()  # 実行
 
-
+    #home(元々の)の姿勢に戻す。
     arm.set_named_target("home")
     arm.go()
-
-
-
-
-
-
-
-
-
 
     print("done")
 
