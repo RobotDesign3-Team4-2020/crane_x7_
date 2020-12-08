@@ -28,7 +28,7 @@ private:     //hensuu wo private de sengen
 cv::Mat img_1;  //int x; mitai na mono //gazou wo kakunou suru hennsuu no sengen 
 depth_estimater::depth_estimater(){
     //RealSense
-    sub_rgb = nh.subscribe<sensor_msgs::Image>("/camera/color/image_raw", 1, &depth_estimater::rgbImageCallback, this);
+    sub_rgb = nh.subscribe<sensor_msgs::Image>("/usb_cam/image_raw", 1, &depth_estimater::rgbImageCallback, this);
 	//シミュレータ上のカメラ
     //sub_rgb = nh.subscribe<sensor_msgs::Image>("/camera/image_raw", 1, &depth_estimater::rgbImageCallback, this);
 }
@@ -52,8 +52,8 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
     
     //Scalar lower = cv::Scalar(0,200,200);
     //Scalar upper = cv::Scalar(30,255,255);    
-    Scalar lower = cv::Scalar( 0, 120,  120); //フィルタリングする色の範囲
-    Scalar upper = cv::Scalar( 80, 230, 255);
+    Scalar lower = cv::Scalar( 155, 50,  50); //フィルタリングする色の範囲
+    Scalar upper = cv::Scalar( 180, 255, 255);
 
 
 	// BGRからHSVへ変換
