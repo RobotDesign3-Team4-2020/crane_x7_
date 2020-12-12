@@ -178,3 +178,4 @@ if __name__ == "__main__":
     arm_joint_trajectory_example = ArmJointTrajectoryExample() 
     arm_joint_trajectory_example.search(0)
     rospy.spin()
+
