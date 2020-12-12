@@ -92,6 +92,27 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
         for(int k = 0; k < counts; k++){
             gx += contours.at(max_area_contour).at(k).x;
             gy += contours.at(max_area_contour).at(k).y;
+            // fit bounding rectangle around contour
+        cv::RotatedRect rotatedRect = cv::minAreaRect(contours[i]);
+
+        // read points and angle
+        cv::Point2f rect_points[4];
+        rotatedRect.points( rect_points );
+
+        float  angle = rotatedRect.angle; // angle
+
+        // read center of rotated rect
+        cv::Point2f center = rotatedRect.center; // center
+
+        // draw rotated rect
+        for(unsigned int j=0; j<4; ++j)
+            cv::line(input, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,255,0));
+
+        // draw center and print text
+        std::stringstream ss;   ss << angle; // convert float to string
+        cv::circle(input, center, 5, cv::Scalar(0,255,0)); // draw center
+        cv::putText(input, ss.str(), center + cv::Point2f(-25,25), cv::FONT_HERSHEY_COMPLEX_SMALL, 1, cv::Scalar(255,0,255)); // print angle
+    }
         }
 
         gx/=counts;
