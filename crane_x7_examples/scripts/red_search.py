@@ -78,7 +78,7 @@ class ArmJointTrajectoryExample(object):
                 print("ave_y :{}".format(sum_y/count))
                 print("theta")
                 print(rad)
-                if rad < 160:
+                if rad < 60:
                     if rad > 1:
                         self.calculate(rad,sum_x/count,sum_y/count) #平均取ったものをself.calculateを送る
         else :
@@ -90,17 +90,88 @@ class ArmJointTrajectoryExample(object):
 
 
     def callback2(self, angle,tar_x,tar_y):
-        print ("nyannyan")
         global mode
         global count
         radian_angle = angle * 3.14/180    
         if radian_angle != 1.0:
             if radian_angle < 2.4:
                 if radian_angle > 0.8:
-                    self.angle_change(radian_angle,tar_x,tar_y)
+                    self.pick_and_put(radian_angle,tar_x,tar_y)
 
 
-    def angle_change(self, angle,tar_x,tar_y):
+    def pick_and_put(self,radian_angle,tar_x,tar_y):
+        robot = moveit_commander.RobotCommander()
+        arm = moveit_commander.MoveGroupCommander("arm")
+        arm.set_max_velocity_scaling_factor(0.1)
+        gripper = moveit_commander.MoveGroupCommander("gripper")
+        # 何かを掴んでいた時のためにハンドを開く
+        gripper.set_joint_value_target([0.9, 0.9])
+        gripper.go()
+        # 掴む準備をする
+        target_pose = geometry_msgs.msg.Pose()
+        target_pose.position.x = 0
+        target_pose.position.y = -0.3
+        target_pose.position.z = 0.3
+        q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+        target_pose.orientation.x = q[0]
+        target_pose.orientation.y = q[1]
+        target_pose.orientation.z = q[2]
+        target_pose.orientation.w = q[3]
+        arm.set_pose_target(target_pose)  # 目標ポーズ設定
+        arm.go()  # 実行
+
+        # ハンドを開く
+        gripper.set_joint_value_target([0.7, 0.7])
+        gripper.go()
+
+        # 掴みに行く
+        target_pose = geometry_msgs.msg.Pose()
+        target_pose.position.x = 0
+        target_pose.position.y = -0.3
+        target_pose.position.z = 0.07
+        q = quaternion_from_euler(-3.14, 0.0, -3.14/2.0)  # 上方から掴みに行く場合
+        target_pose.orientation.x = q[0]
+        target_pose.orientation.y = q[1]
+        target_pose.orientation.z = q[2]
+        target_pose.orientation.w = q[3]
+        arm.set_pose_target(target_pose)  # 目標ポーズ設定
+        arm.go()  # 実行
+
+        # ハンドを閉じる
+        gripper.set_joint_value_target([0.2, 0.2])
+        gripper.go()
+
+        # SRDFに定義されている"landing"の姿勢にする
+        arm.set_named_target("landing")
+        arm.go()
+        
+        
+        target_pose.position.x = tar_x+(0.12*math.sin(radian_angle))
+        target_pose.position.y = tar_y-(0.12*math.cos(radian_angle))
+        target_pose.position.z = 0.1
+        q = quaternion_from_euler(-3.14, 0.0, radian_angle)
+        target_pose.orientation.x = q[0]
+        target_pose.orientation.y = q[1]
+        target_pose.orientation.z = q[2]
+        target_pose.orientation.w = q[3]
+        arm.set_pose_target(target_pose)
+        arm.go()
+        
+        # ハンドを開く
+        gripper.set_joint_value_target([0.7, 0.7])
+        gripper.go()
+        
+        # SRDFに定義されている"landing"の姿勢にする
+        arm.set_named_target("landing")
+        arm.go()
+
+        self.angle_change(radian_angle,tar_x,tar_y)
+
+
+
+
+
+    def angle_change(self, radian_angle,tar_x,tar_y):
         robot = moveit_commander.RobotCommander()
         arm = moveit_commander.MoveGroupCommander("arm")
         arm.set_max_velocity_scaling_factor(0.1)
@@ -113,24 +184,47 @@ class ArmJointTrajectoryExample(object):
         target_pose = geometry_msgs.msg.Pose()
         
         
-        #つかむ前の位置、姿勢 
+        #押す前の位置、姿勢 
         target_pose.position.x = tar_x
         target_pose.position.y = tar_y
         target_pose.position.z = 0.33
-        q = quaternion_from_euler(-3.14, 0.0, angle)
+        q = quaternion_from_euler(-3.14, 0.0, radian_angle)
         target_pose.orientation.x = q[0]
         target_pose.orientation.y = q[1]
         target_pose.orientation.z = q[2]
         target_pose.orientation.w = q[3]
         arm.set_pose_target(target_pose)
         arm.go()
-        rospy.sleep(5.0)
-       
-
+        rospy.sleep(2.0)
         
-
-        #self.go(mode)
-
+        #押す前の位置、姿勢 
+        target_pose.position.x = tar_x
+        target_pose.position.y = tar_y
+        target_pose.position.z = 0.215
+        q = quaternion_from_euler(-3.14, 0.0, radian_angle)
+        target_pose.orientation.x = q[0]
+        target_pose.orientation.y = q[1]
+        target_pose.orientation.z = q[2]
+        target_pose.orientation.w = q[3]
+        arm.set_pose_target(target_pose)
+        arm.go()
+        rospy.sleep(2.0)
+        
+        target_pose.position.x = tar_x
+        target_pose.position.y = tar_y
+        target_pose.position.z = 0.33
+        q = quaternion_from_euler(-3.14, 0.0, radian_angle)
+        target_pose.orientation.x = q[0]
+        target_pose.orientation.y = q[1]
+        target_pose.orientation.z = q[2]
+        target_pose.orientation.w = q[3]
+        arm.set_pose_target(target_pose)
+        arm.go()
+        rospy.sleep(2.0)
+        
+        #homeに
+        arm.set_named_target("home")
+        arm.go()
 
 
     def calculate(self,angle, ave_x, ave_y):
