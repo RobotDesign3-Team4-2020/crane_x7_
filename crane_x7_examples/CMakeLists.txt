@@ -46,7 +46,7 @@ include_directories(
 ## Install ##
 #############
 
-add_executable(cam scripts/opencv.cpp)
+add_executable(cam scripts/test.cpp)
 target_link_libraries(cam ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 install(PROGRAMS
