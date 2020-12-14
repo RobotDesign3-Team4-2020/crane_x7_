@@ -28,9 +28,9 @@ private:     //hensuu wo private de sengen
 cv::Mat img_1;  //int x; mitai na mono //gazou wo kakunou suru hennsuu no sengen 
 depth_estimater::depth_estimater(){
     //RealSense
-    sub_rgb = nh.subscribe<sensor_msgs::Image>("/usb_cam/image_raw", 1, &depth_estimater::rgbImageCallback, this);
+    //sub_rgb = nh.subscribe<sensor_msgs::Image>("/usb_cam/image_raw", 1, &depth_estimater::rgbImageCallback, this);
 	//シミュレータ上のカメラ
-    //sub_rgb = nh.subscribe<sensor_msgs::Image>("/camera/image_raw", 1, &depth_estimater::rgbImageCallback, this);
+    sub_rgb = nh.subscribe<sensor_msgs::Image>("/camera/image_raw", 1, &depth_estimater::rgbImageCallback, this);
 }
  
 depth_estimater::~depth_estimater(){
