@@ -51,11 +51,12 @@ $catkin_make
 #### 注意点
 - WSL2でUSBシリアルの使用は難しかったです
 
-詳しくは公式のリポジトリを参考にしてください。  
-https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
-https://github.com/IntelRealSense/realsense-ros
+詳しくは公式のリポジトリを参考にしてください。
+[Intel® RealSense™ SDK 2.0パッケージのインストール](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md)
 
-## RealSEnse D435iをcrane_x7に取り付ける
+[ROS Wrapper for Intel® RealSense™ Devicesのインストール](https://github.com/IntelRealSense/realsense-ros)
+
+## RealSense D435iをcrane_x7に取り付ける
 
 ## 実機の動かし方
 動作確認する場合、信号ケーブルを接続した状態で次のコマンドを実行してください。
