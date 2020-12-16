@@ -52,17 +52,20 @@ $catkin_make
 - WSL2でUSBシリアルの使用は難しかったです
 
 詳しくは公式のリポジトリを参考にしてください。
+
 [Intel® RealSense™ SDK 2.0パッケージのインストール](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md)
 
 [ROS Wrapper for Intel® RealSense™ Devicesのインストール](https://github.com/IntelRealSense/realsense-ros)
 
 ## RealSense D435iをcrane_x7に取り付ける
 以下の写真のように取り付ける
-![image](https://user-images.githubusercontent.com/70384485/102331893-c2444900-3fce-11eb-98f1-78d05cf59eff.png)
+
+<img src="https://user-images.githubusercontent.com/70384485/102331893-c2444900-3fce-11eb-98f1-78d05cf59eff.png" width="320px">
 
 ## 消毒液のノズルにマーカーを取り付ける
 以下の写真のように黄色で長方形のマーカーを取り付ける
-![image](https://user-images.githubusercontent.com/70384485/102332471-76de6a80-3fcf-11eb-9a8e-3b5462a1ad7b.png)
+
+<img src="https://user-images.githubusercontent.com/70384485/102332471-76de6a80-3fcf-11eb-9a8e-3b5462a1ad7b.png" width="320px">
 
 ## 実機の動かし方
 動作確認する場合、信号ケーブルを接続した状態で次のコマンドを実行してください。
