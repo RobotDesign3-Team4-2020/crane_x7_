@@ -13,19 +13,31 @@ $ git checkout R.kamioka
 ## RealSense D435iのインストール
 #### RealSense SDKのインストール
 サーバーの公開鍵を登録
-`$ sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE`
+```
+$ sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+```
 サーバーをリポジトリのリストに追加（Ubuntu 18 LTS以外はことなるので注意）
-`$ sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u`
+```
+$ sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
+```
 更新
-`$ sudo apt update`
+```
+$ sudo apt update
+```
 ライブラリのインストール
-`$ sudo apt install librealsense2-dkms`
-`$ sudo apt install librealsense2-utils`
+```
+$ sudo apt install librealsense2-dkms
+$ sudo apt install librealsense2-utils
+```
 オプションで、開発者パッケージとデバッグパッケージをインストール
-`$ sudo apt install librealsense2-dev`
-`$ sudo apt install librealsense2-dbg`
+```
+$ sudo apt install librealsense2-dev
+$ sudo apt install librealsense2-dbg
+```
 Realsenseを再接続して実行確認
-`$ realsense-viewer`
+```
+$ realsense-viewer
+```
 
 #### ROS Wrapperのインストール
 ```
