@@ -5,7 +5,7 @@
 #include <geometry_msgs/Pose2D.h>
 #include <vector>
 #include<std_msgs/Float64MultiArray.h>
-
+#include <algorithm>
 
 int time_count=0;
 using namespace::cv;
@@ -29,12 +29,12 @@ private:     //hensuu wo private de sengen
     double sumx, sumy;
 };
 cv::Mat img_1;  //int x; mitai na mono //gazou wo kakunou suru hennsuu no sengen 
-cv::Mat input = cv::imread("/usb_cam/image_raw");
+cv::Mat input = cv::imread("/camera/color/image_raw");
 depth_estimater::depth_estimater(){
     //RealSense
     //sub_rgb = nh.subscribe<sensor_msgs::Image>("/usb_cam/image_raw", 1, &depth_estimater::rgbImageCallback, this);
 	//シミュレータ上のカメラ
-    sub_rgb = nh.subscribe<sensor_msgs::Image>("/camera/image_raw", 1, &depth_estimater::rgbImageCallback, this);
+    sub_rgb = nh.subscribe<sensor_msgs::Image>("/camera/color/image_raw", 1, &depth_estimater::rgbImageCallback, this);
 }
  
 depth_estimater::~depth_estimater(){
@@ -43,7 +43,7 @@ depth_estimater::~depth_estimater(){
 
 void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
     cv_bridge::CvImagePtr cv_ptr;
- if(time_count<800){
+ /*if(time_count<800){
     time_count++;
     try{
         cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
@@ -142,7 +142,7 @@ printf("timecount=%d\n", time_count);
 
 
 
-else{
+else{*/
     try{
         cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     }catch (cv_bridge::Exception& ex){
@@ -163,6 +163,8 @@ else{
 	Mat mask_image, output_image;
     int px_1,x,y,x_mem,y_mem;
     int flag = 0;
+    double gx = 0, gy = 0;    //gx,gyはオブジェクトの重心の座標
+
     // inRangeを用いてフィルタリング
 	inRange(hsv_img, lower, upper, mask_image);
     int count = 0;
@@ -195,7 +197,7 @@ else{
             }
             
         }
-        }catch(CvErrorCallback){
+    }catch(CvErrorCallback){
         }
         if(max_area_contour != -1){
             edge1 = cv::Vec2f(rect_points[1].x,rect_points[1].y)-cv::Vec2f(rect_points[0].x,rect_points[0].y);
@@ -210,10 +212,27 @@ else{
                 cv::line(input, rect_points[j],rect_points[(j+1)%3],cv::Scalar(0,255,0));
             }
             std::stringstream ss; ss<<angle;
-            cv::circle(input,center,5,cv::Scalar(0,255,0));
-            cv::putText(input,ss.str(),center+ cv::Point2f(-25,25),cv::FONT_HERSHEY_COMPLEX_SMALL,1,cv::Scalar(255,0,255));
+            //cv::circle(input,center,5,cv::Scalar(0,255,0));
+            //cv::putText(input,ss.str(),center+ cv::Point2f(-25,25),cv::FONT_HERSHEY_COMPLEX_SMALL,1,cv::Scalar(255,0,255));
             std::cout << "angle" << ms.theta << std::endl;
             ms.theta = angle;
+
+
+        int counts = contours2.at(max_area_contour).size();
+        double gx = 0, gy = 0;    //gx,gyはオブジェクトの重心の座標
+    
+        for(int k = 0; k < counts; k++){
+            gx += contours2.at(max_area_contour).at(k).x;
+            gy += contours2.at(max_area_contour).at(k).y;
+        }
+         
+        gx/=counts;  
+        gy/=counts;
+        ms.x = -320 + gx;    //ms.xは中心を(0,0)としたときのxの値 (画像の右方向をx軸の正とする)
+        ms.y = 240 - gy;    //ms.yは中心を(0,0)としたときのyの値 (画像の上方向をy軸の正とする)            
+
+
+            std::cout <<"x"<< ms.x << "," << "y" <<ms.y << std::endl;
             pub0.publish(ms);
             pub1.publish(ms);
             pub2.publish(ms);
@@ -239,7 +258,7 @@ else{
     }
     cv::imshow("RGB image", output_image);
     cv::waitKey(10);
-}
+//}
 
 
 }
