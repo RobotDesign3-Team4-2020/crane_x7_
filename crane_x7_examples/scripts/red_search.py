@@ -155,9 +155,11 @@ class ArmJointTrajectoryExample(object):
         arm = moveit_commander.MoveGroupCommander("arm")
         arm.set_max_velocity_scaling_factor(0.1)
         gripper = moveit_commander.MoveGroupCommander("gripper")
+        
         # 何かを掴んでいた時のためにハンドを開く
         gripper.set_joint_value_target([0.9, 0.9])
         gripper.go()
+        
         # 掴む準備をする
         target_pose = geometry_msgs.msg.Pose()
         target_pose.position.x = s_tar_x
@@ -191,9 +193,11 @@ class ArmJointTrajectoryExample(object):
         # ハンドを閉じる
         gripper.set_joint_value_target([0.04, 0.04])
         gripper.go()
-
+        
+         # SRDFに定義されている"vertical"の姿勢にする
         arm.set_named_target("vertical")
         arm.go()
+        
         # SRDFに定義されている"landing"の姿勢にする
         arm.set_named_target("landing")
         arm.go()
@@ -283,6 +287,7 @@ class ArmJointTrajectoryExample(object):
         arm.go()
         rospy.sleep(1.0)
         
+        #アルコールボトルからアームを引く
         target_pose.position.x = tar_x-0.02
         target_pose.position.y = tar_y
         target_pose.position.z = 0.33
