@@ -144,7 +144,7 @@ class ArmJointTrajectoryExample(object):
         print("count = {}".format(count))
         print("s_count = {}".format(s_count))
 
-
+    #度数法から弧度法に変換
     def callback2(self, angle,tar_x,tar_y,s_tar_x,s_tar_y):
         radian_angle = angle * 3.14/180    
         self.pick_and_put(radian_angle,tar_x,tar_y,s_tar_x,s_tar_y)
