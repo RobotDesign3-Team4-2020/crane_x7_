@@ -4,6 +4,7 @@
 $ cd ~/catkin_ws/src/
 $ git clone https://github.com/RobotDesign3-Team4-2020/crane_x7_.git
 $ rosdep install -r -y --from-paths --ignore-src crane_x7_
+$ cd ~/catkin_ws && catkin_make
 ```
 
 ## RealSense D435iのインストール
