@@ -5,11 +5,7 @@ $ cd ~/catkin_ws/src/
 $ git clone https://github.com/RobotDesign3-Team4-2020/crane_x7_.git
 $ rosdep install -r -y --from-paths --ignore-src crane_x7_
 ```
-## branch移動
-```
-$ cd ~/catkin_ws/src/
-$ git checkout R.kamioka
-```
+
 ## RealSense D435iのインストール
 #### RealSense SDKのインストール
 サーバーの公開鍵を登録
