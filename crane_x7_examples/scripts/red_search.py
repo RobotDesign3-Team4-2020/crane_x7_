@@ -347,7 +347,7 @@ class ArmJointTrajectoryExample(object):
         gripper.set_joint_value_target([0.9, 0.9])
         gripper.go()
 
-        # SRDFに定義されている"home"の姿勢にする
+        # SRDFに定義されている"vertical"の姿勢にする
         arm.set_named_target("vertical")
         arm.go()
         #gripper.set_joint_value_target([0.7, 0.7])
