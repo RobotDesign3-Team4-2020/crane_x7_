@@ -69,7 +69,7 @@ class ArmJointTrajectoryExample(object):
     y = 0
     global z
     z = 0
-    global alc_x　#アルコールのx座標
+    global alc_x #アルコールのx座標
     alc_x = 0
     global alc_y #アルコールのy座標
     alc_y = 0
