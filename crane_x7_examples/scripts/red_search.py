@@ -71,7 +71,7 @@ class ArmJointTrajectoryExample(object):
     z = 0
     global alc_x　#アルコールのx座標
     alc_x = 0
-    global alc_y
+    global alc_y #アルコールのy座標
     alc_y = 0
     img = cv2.imread('opencv_logo.png',0) #画像をRGBで読み込む
            
@@ -98,7 +98,7 @@ class ArmJointTrajectoryExample(object):
                 if rad > 1:
                     if rad < 50:
                         angle = rad
-                if rad > 150:
+                if rad > 150: #０度から-30度まで計測できるように引く
                     if rad < 180:
                         angle = -(180-rad)
                 global sum_x
@@ -109,9 +109,9 @@ class ArmJointTrajectoryExample(object):
             else:
                 print(angle)
                 global alc_x
-                alc_x=sum_x/350
+                alc_x=sum_x/350 #alc_xにアルコールの座標を代入
                 global alc_y
-                alc_y=sum_y/350
+                alc_y=sum_y/350 #alc_xにアルコールの座標を代入
                 
                 count+=100
                 
@@ -144,9 +144,8 @@ class ArmJointTrajectoryExample(object):
         print("count = {}".format(count))
         print("s_count = {}".format(s_count))
 
-    #度数法から弧度法に変換
-    def callback2(self, angle,tar_x,tar_y,s_tar_x,s_tar_y):
-        radian_angle = angle * 3.14/180    
+    def calculate2(self, angle,tar_x,tar_y,s_tar_x,s_tar_y):
+        radian_angle = angle * 3.14/180 #度数法から弧度法に変換
         self.pick_and_put(radian_angle,tar_x,tar_y,s_tar_x,s_tar_y)
 
 
@@ -205,6 +204,7 @@ class ArmJointTrajectoryExample(object):
         
         target_pose.position.x = tar_x+(0.12*math.sin(radian_angle))
         target_pose.position.y = tar_y-(0.12*math.cos(radian_angle))
+        #角度がマイナスの際に計算
         if math.sin(radian_angle)<0:
             target_pose.position.y -= 0.04 
             target_pose.position.x -= 0.02
@@ -225,6 +225,7 @@ class ArmJointTrajectoryExample(object):
         
         target_pose.position.x = tar_x+(0.12*math.sin(radian_angle))
         target_pose.position.y = tar_y-(0.12*math.cos(radian_angle))
+        #角度がマイナスの際に計算
         if math.sin(radian_angle)<0:
             target_pose.position.y -= 0.04 
             target_pose.position.x -= 0.02
@@ -422,7 +423,7 @@ class ArmJointTrajectoryExample(object):
         gripper.set_joint_value_target([0.2,0.2])
         gripper.go()
         #global rad_s
-        self.callback2(angle,tar_x,tar_y,s_tar_x,s_tar_y)
+        self.calculate2(angle,tar_x,tar_y,s_tar_x,s_tar_y)
 
 
 if __name__ == "__main__":
