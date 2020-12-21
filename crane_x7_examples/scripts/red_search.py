@@ -69,11 +69,11 @@ class ArmJointTrajectoryExample(object):
     y = 0
     global z
     z = 0
-    global alc_x
+    global alc_x　#アルコールのx座標
     alc_x = 0
     global alc_y
     alc_y = 0
-    img = cv2.imread('opencv_logo.png',0)
+    img = cv2.imread('opencv_logo.png',0) #画像をRGBで読み込む
            
     def callback(self, ms):
         global mode
