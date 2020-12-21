@@ -32,7 +32,7 @@ cv::Mat img_1;  //int x; mitai na mono //gazou wo kakunou suru hennsuu no sengen
 cv::Mat input = cv::imread("/camera/color/image_raw");
 depth_estimater::depth_estimater(){
     //RealSense
-    //sub_rgb = nh.subscribe<sensor_msgs::Image>("/usb_cam/image_raw", 1, &depth_estimater::rgbImageCallback, this);
+    //sub_rgb = nh.subscribe<sensor_msgs::Image>("/usb_cam/image_raw", 1, &depth_estimater::rgbImageCallback, this);//usbカメラで実験
 	//シミュレータ上のカメラ
     sub_rgb = nh.subscribe<sensor_msgs::Image>("/camera/color/image_raw", 1, &depth_estimater::rgbImageCallback, this);
 }
@@ -43,106 +43,7 @@ depth_estimater::~depth_estimater(){
 
 void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
     cv_bridge::CvImagePtr cv_ptr;
- /*if(time_count<800){
-    time_count++;
-    try{
-        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
-    }catch (cv_bridge::Exception& ex){
-        ROS_ERROR("error");
-        exit(-1);
-    }    
-    cv::Mat hsv_img;
-    cvtColor( cv_ptr->image,hsv_img,CV_BGR2HSV,3);
-   
-    
-    //Scalar lower = cv::Scalar(0,200,200);
-    //Scalar upper = cv::Scalar(30,255,255);    
-    Scalar lower = cv::Scalar( 155, 50,  50); //フィルタリングする色の範囲
-    Scalar upper = cv::Scalar( 180, 255, 255);
 
-
-	// BGRからHSVへ変換
-	Mat mask_image, output_image;
-    int px_1,x,y,x_mem,y_mem;
-    int flag = 0;
-    // inRangeを用いてフィルタリング
-	inRange(hsv_img, lower, upper, mask_image);
-    int count = 0;
-	
-    
-    // 輪郭を格納するcontoursにfindContours関数に渡すと輪郭を点の集合として入れてくれる
-    std::vector<std::vector<cv::Point> > contours;
-    cv::findContours(mask_image, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);    // 輪郭線を格納
-
-
-    double max_area=0;
-    
-    int max_area_contour=-1;
-    try{
-        // 各輪郭をcontourArea関数に渡し、最大面積を持つ輪郭を探す
-        for(int j=0; j<contours.size(); j++){
-            double area = cv::contourArea(contours.at(j)); //menseki keisan
-            if(max_area<area){
-                max_area=area;
-                max_area_contour=j;
-            }
-        }
-    }catch(CvErrorCallback){
-        
-    }
-    if(max_area_contour != -1){
-        int counts = contours.at(max_area_contour).size();
-        double gx = 0, gy = 0;    //gx,gyはオブジェクトの重心の座標
-    
-        for(int k = 0; k < counts; k++){
-            gx += contours.at(max_area_contour).at(k).x;
-            gy += contours.at(max_area_contour).at(k).y;
-        }
-         
-        gx/=counts;  
-        gy/=counts;
-        ms.x = -320 + gx;    //ms.xは中心を(0,0)としたときのxの値 (画像の右方向をx軸の正とする)
-        ms.y = 240 - gy;    //ms.yは中心を(0,0)としたときのyの値 (画像の上方向をy軸の正とする)
-        ms.theta = 1;
-        printf("x = %lf, y = %lf theta = %lf\n", ms.x, ms.y, ms.theta);
-        pub0.publish(ms);
-        pub1.publish(ms);
-        pub2.publish(ms);
-    }else{
-        ms.theta = 0;
-        pub0.publish(ms);
-        pub1.publish(ms);
-        pub2.publish(ms);
-        printf("x = %lf, y = %lf theta = %lf\n", ms.x, ms.y, ms.theta);
-    } 
-printf("timecount=%d\n", time_count);
-
-    // マスクを基に入力画像をフィルタリング
-    cv_ptr->image.copyTo(output_image, mask_image);
-	for( y = 0;y < 480;y++){
-        for( x = 0; x < 640; x++){
-            px_1 = static_cast<int>(output_image.at<unsigned char>(y, x));  
-            if(px_1 > 200 && flag == 0){
-               
-                x_mem = x;
-                y_mem = y;
-                flag = 1;
-            }
-        }
-    }
-    if(flag == 1){
-        cv::rectangle(output_image,cv::Point(x_mem-200,y_mem),cv::Point(x_mem-500,y_mem+300),cv::Scalar(0,200,0),3,4);
-        //std::cout << x_mem << "," << y_mem << std::endl;
-        flag = 0;
-    }
-    cv::imshow("RGB image", output_image);
-    cv::waitKey(10);
-}
-
-
-
-
-else{*/
     try{
         cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     }catch (cv_bridge::Exception& ex){
@@ -200,20 +101,18 @@ else{*/
     }catch(CvErrorCallback){
         }
         if(max_area_contour != -1){
-            edge1 = cv::Vec2f(rect_points[1].x,rect_points[1].y)-cv::Vec2f(rect_points[0].x,rect_points[0].y);
-            edge2 = cv::Vec2f(rect_points[2].x,rect_points[2].y)-cv::Vec2f(rect_points[1].x,rect_points[1].y);
+            edge1 = cv::Vec2f(rect_points[1].x,rect_points[1].y)-cv::Vec2f(rect_points[0].x,rect_points[0].y);//長方形の長さを計算
+            edge2 = cv::Vec2f(rect_points[2].x,rect_points[2].y)-cv::Vec2f(rect_points[1].x,rect_points[1].y);//長方形の長さを計算
             usedEdge = edge1;
             if(cv::norm(edge2) > cv::norm(edge1)){
-                usedEdge = edge2;
+                usedEdge = edge2;//長い方をusedEdgeに代入
             }
             cv::Point2f reference = cv::Vec2f(1,0);
-            angle = 180.0/CV_PI * acos((reference.x * usedEdge.x + reference.y * usedEdge.y) / (cv::norm(reference) * cv::norm(usedEdge)));
+            angle = 180.0/CV_PI * acos((reference.x * usedEdge.x + reference.y * usedEdge.y) / (cv::norm(reference) * cv::norm(usedEdge)));//度数へ変換
             for(int j=0;j<4;j++){
                 cv::line(input, rect_points[j],rect_points[(j+1)%3],cv::Scalar(0,255,0));
             }
             std::stringstream ss; ss<<angle;
-            //cv::circle(input,center,5,cv::Scalar(0,255,0));
-            //cv::putText(input,ss.str(),center+ cv::Point2f(-25,25),cv::FONT_HERSHEY_COMPLEX_SMALL,1,cv::Scalar(255,0,255));
             std::cout << "angle" << ms.theta << std::endl;
             ms.theta = angle;
 
@@ -258,7 +157,6 @@ else{*/
     }
     cv::imshow("RGB image", output_image);
     cv::waitKey(10);
-//}
 
 
 }
@@ -269,5 +167,4 @@ int main(int argc, char **argv){
     ros::spin();
     return 0;
 }
-
 
