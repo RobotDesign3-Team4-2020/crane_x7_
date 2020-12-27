@@ -70,7 +70,7 @@ $catkin_make
 $ sudo chmod 777 /dev/ttyUSB0
 $ roslaunch crane_x7_bringup demo.launch  
 $ roslaunch realsense2_camera rs_camera.launch
-$ rosrun crane_x7_robot_design3 cam
+$ rosrun crane_x7_examples cam1
 ```
 
 
