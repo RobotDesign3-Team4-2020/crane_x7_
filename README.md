@@ -68,7 +68,7 @@ $catkin_make
 動作確認する場合、信号ケーブルを接続した状態で次のコマンドを実行してください。
 ```
 $ sudo chmod 777 /dev/ttyUSB0
-$ roslaunch crane_x7_bringup demo.launch  
+$ roslaunch crane_x7_moveit_config demo.launch  
 $ roslaunch realsense2_camera rs_camera.launch
 $ rosrun crane_x7_examples cam1
 ```
